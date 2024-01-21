@@ -13,12 +13,15 @@ class Environment:
         return [0.0, 0.0, 0.0]  # 给智能体返回当前环境的观察。它通常被实现为有关环境内部状态的某些函数
 
     def get_actions(self) -> List[int]:
+        # 智能体查询自己能执行的动作集。通常，智能体能执行的动作集不会随着时间变化，但是当环境发生变化的时候，某些动作可能会变得无法执行
         return [0, 1]
 
     def is_done(self) -> bool:
+        # 智能体片段结束的信号
         return self.steps_left == 0
 
     def action(self, action: int) -> float:
+        # 处理智能体的动作以及返回该动作的奖励
         if self.is_done():
             raise Exception("Game is over")
         self.steps_left -= 1
@@ -30,6 +33,10 @@ class Agent:
         self.total_reward = 0.0
 
     def step(self, env: Environment):
+        # 观察环境
+        # 基于观察决定动作
+        # 向环境提交动作
+        # 获取当前步骤的奖励
         current_obs = env.get_observation()
         actions = env.get_actions()
         reward = env.action(random.choice(actions))
